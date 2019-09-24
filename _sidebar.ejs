@@ -1,11 +1,10 @@
 <li>
-    <strong>其他</strong>
+    <% config.theme.side_links.forEach(function(side) { %>
+    <strong><%= side.name %></strong>
     <ul>
-        <li><a href="https://github.com/Lotlab/wiki">Github</a></li>
-        <li><a href="/page/terms" target="_self">网站协议</a></li>
-        <li><a href="/page/contribute" target="_self">贡献内容</a></li>
-        <% if (config['wiki'].log) { %>
-        <li><a href="<%= config['base'].path %>changelog/">修改日志</a></li>
-        <% } %>
+        <% side.links.forEach(function(link) { %>
+            <li><a href="<%= link.link %>"><%= link.name %></a></li>
+        <% }) %>
     </ul>
+    <% }) %>
 </li>

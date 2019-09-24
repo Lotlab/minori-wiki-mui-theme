@@ -5,7 +5,7 @@
     <div class="mui-container-fluid mui-col-sm-10 mui-col-sm-offset-1">
       <br>
       <h1><%= config['wiki'].title %></h1>
-      <p>欢迎来到 Lotlab Wiki！</p>
+      <p><%= config['theme'].greeting %></p>
       
       <h2>文章列表</h2>
       <% categories.forEach(function(category) { %>
@@ -31,11 +31,7 @@
             </div>
         </div>
       <% }) %>
-      <h2>变更记录</h2>
-      <ul>
-        <li>2017-01-18 完全静态化，迁移至 Github Pages.</li>
-        <li>2015-11-07 替换庞大的 MediaWiki 为 DokuWiki </li>
-      </ul>
+      <%- config['theme'].index_content %>
     </div>
 </div>
 <%- include _footer %>
