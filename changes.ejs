@@ -12,6 +12,7 @@
                 <br/>
                 <small><code><%= commit.abbrevHash %></code> by <%= commit.committerName %> on <%= commit.committerDate %></small>
             </div>
+			<% if (commits.files !== undefined) { %>
             <div class="mui-col-md-10 mui-col-md-offset-1">
                 <ul class="mui-list--unstyled">
                     <% commit.files.forEach(function(f) { %>
@@ -23,6 +24,7 @@
                     <% }) %>
                 </ul>
             </div>
+			<% } %>
         </div>
         <% }) %>
     </div>
