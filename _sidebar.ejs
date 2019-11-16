@@ -1,6 +1,10 @@
 <li>
     <% config.theme.side_links.forEach(function(side) { %>
-    <strong><%= side.name %></strong>
+	<% if(config.theme.side_links.length!=1){%>
+    <strong class="fold"><%= side.name %></strong>
+	<%}else{%>
+	<strong><%= side.name %></strong>
+	<%}%>
     <ul>
         <% side.links.forEach(function(link) { %>
             <li><a href="<%= link.link %>"><%= link.name %></a></li>
