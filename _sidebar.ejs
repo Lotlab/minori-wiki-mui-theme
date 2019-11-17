@@ -7,7 +7,7 @@
 	<%}%>
     <ul>
         <% side.links.forEach(function(link) { %>
-            <li><a href="<%= link.link %>"><%= link.name %></a></li>
+            <li><a href="<%= link.link %>"<%if(link.external){%> target="_blank"<%}%>><%= link.name %></a></li>
         <% }) %>
     </ul>
     <% }) %>
