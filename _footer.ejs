@@ -5,54 +5,65 @@
 </footer>
 
 <script>
-hljs.initHighlightingOnLoad();
-jQuery(function($) {
-    var $bodyEl = $('body'),
-        $sidedrawerEl = $('#sidedrawer');
+    hljs.initHighlightingOnLoad();
 
+    let tables = document.getElementsByTagName("table");
+    for(let i=0;i<tables.length;i++) {
+        tables[i].classList.add("mui-table","mui-table--bordered");
+    }
 
-    function showSidedrawer() {
-        // show overlay
+    var sidedrawer = document.getElementById("sidedrawer");
+
+    document.getElementsByClassName("js-show-sidedrawer")[0].onclick = showSideDrawer;
+    document.getElementsByClassName("js-hide-sidedrawer")[0].onclick = hideSideDrawer;
+
+    let foldEls = document.getElementsByClassName("fold");
+    for (let i = 0; i < foldEls.length; i++) {
+        let sb = foldEls[i].nextElementSibling;
+        if (sb != undefined) {
+            sb.classList.add("mui--hide");
+            foldEls[i].onclick = foldElementHandler;
+        }
+    }
+
+    function showSideDrawer() {
         var options = {
             onclose: function() {
+                sidedrawer.classList.remove("active");
+                document.body.append(sidedrawer);
                 $sidedrawerEl
                     .removeClass('active')
                     .appendTo(document.body);
             }
         };
-
-        var $overlayEl = $(mui.overlay('on', options));
-
-        // show element
-        $sidedrawerEl.appendTo($overlayEl);
+        let overlayEl = mui.overlay('on', options);
+        overlayEl.append(sidedrawer);
         setTimeout(function() {
-            $sidedrawerEl.addClass('active');
+            sidedrawer.classList.add("active");
         }, 20);
     }
 
-
-    function hideSidedrawer() {
-        $bodyEl.toggleClass('hide-sidedrawer');
+    function hideSideDrawer() {
+        document.body.classList.toggle("hide-sidedrawer");
     }
 
-
-    $('.js-show-sidedrawer').on('click', showSidedrawer);
-    $('.js-hide-sidedrawer').on('click', hideSidedrawer);
-  
-    var $titleEls = $('strong.fold', $sidedrawerEl);
-
-    $titleEls
-        .next()
-        .hide();
-
-    $titleEls.on('click', function() {
-        $(this).next().slideToggle(200);
-    });
-    
-    //add mui style
-    $("table").addClass("mui-table mui-table--bordered");
-});
+    function foldElementHandler(ev) {
+        ev.target.nextElementSibling.classList.toggle("mui--hide");
+    }
 </script>
+
+<% if (config.theme.valine) { %>
+<script src='//unpkg.com/valine/dist/Valine.min.js'></script>
+<script>
+new Valine({
+	el: '#vcomments',
+	appId: '<%= config.theme.valine.appid %>',
+	appKey: '<%= config.theme.valine.appkey %>',
+	placeholder: '<%= config.theme.valine.placeholder %>',
+	visitor: <%= config.theme.valine.visitor %>
+})
+</script>
+<% } %>
 
 </body>
 </html>
