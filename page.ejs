@@ -8,6 +8,12 @@
 			<%= page.title %>
 			<div class="category mui--pull-right">
 				<span class="label label-primary"><%= page.category %></span>
+				<% if (config.theme.valine && config.theme.valine.visitor) { %>
+				<span id="/page<%= page.link %>/" class="leancloud_visitors label label-primary">
+					<em class="post-meta-item-text">阅读量 </em>
+					<i class="leancloud-visitors-count">N/A</i>
+				</span>
+				<% } %>
 			</div>
 		</h1>
         <div class="row">
