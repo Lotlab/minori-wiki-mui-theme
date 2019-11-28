@@ -1,0 +1,64 @@
+<script>
+    function generateTOC() {
+        let article = document.getElementById("article");
+        let tocNode = fillTOC(parseDoc(article));
+        document.getElementById("toc").appendChild(tocNode);
+        document.getElementById("toc-hide").onclick = function(){
+            tocNode.classList.toggle("mui--hide");
+            return false;
+        }
+    }
+
+    function parseDoc(article) {
+        let titleList = [];
+        let parse = function parseLinkNode(layer, nd) {
+            let link = nd.firstChild;
+            if (link.nodeName.toLowerCase() == "a") {
+                let href = link.getAttribute("href");
+                let name = nd.childNodes[1].data.trim();
+                return { layer, href, name };
+            }
+        };
+        article.childNodes.forEach(function (nd) {
+            let regExp = /h(\d)/gi;
+            let result = regExp.exec(nd.nodeName.toLowerCase())
+            if (result != null) {
+                titleList.push(parse(result[1], nd));
+            }
+        });
+        return titleList;
+    }
+
+    function fillTOC(titleList) {
+        var list = document.createElement("div");
+        var listIndex = 0;
+        var currentNodeSpace = list;
+        var lastNode = list;
+
+        titleList.forEach(function (elememt) {
+            // create inner layer
+            while (elememt.layer > listIndex) {
+                let cld = document.createElement("ul");
+                if (lastNode == null)  lastNode = currentNodeSpace;
+                lastNode.appendChild(cld);
+                currentNodeSpace = cld;
+                lastNode = null;
+                listIndex++;
+            }
+            // jump out
+            while (elememt.layer < listIndex) {
+                currentNodeSpace = currentNodeSpace.parentNode.parentNode;
+                listIndex--;
+            }
+            lastNode = document.createElement("li");
+            // create list element
+            let a = document.createElement("a");
+            a.innerText = elememt.name;
+            a.href = elememt.href;
+            lastNode.appendChild(a);
+            currentNodeSpace.appendChild(lastNode);
+        });
+        return list;
+    }
+    generateTOC();
+</script>
