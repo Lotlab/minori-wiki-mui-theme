@@ -47,7 +47,8 @@
             }
             // jump out
             while (elememt.layer < listIndex) {
-                currentNodeSpace = currentNodeSpace.parentNode.parentNode;
+                currentNodeSpace = currentNodeSpace.parentNode;
+                if (currentNodeSpace.tagName.toLocaleLowerCase() == "li") currentNodeSpace = currentNodeSpace.parentNode;
                 listIndex--;
             }
             lastNode = document.createElement("li");
