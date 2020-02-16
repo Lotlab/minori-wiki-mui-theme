@@ -14,6 +14,14 @@
 					<i class="leancloud-visitors-count">N/A</i>
 				</span>
 				<% } %>
+				<% if (config.theme.page_raw) { %>
+				<a href="<%= config.theme.page_raw %><%= page.link %>.md" target="_blank"
+					class="label label-secondary">编辑</a>
+				<% } %>
+				<% if (config.theme.page_history) { %>
+				<a href="<%= config.theme.page_history %><%= page.link %>.md" target="_blank"
+					class="label label-secondary">历史记录</a>
+				<% } %>
 			</div>
 		</h1>
 		<div class="mui-panel mui--hidden-md mui--hidden-xs mui--hidden-sm" id="toc">
